@@ -1,4 +1,7 @@
 package edu.gatech.oad.antlab.person;
+
+import com.sun.xml.internal.fastinfoset.util.CharArray;
+
 /**
  *  A simple class for person 3
  *  returns their name and a
@@ -19,7 +22,7 @@ public class Person3 {
 	public Person3(String pname){
 	  name = pname;
 	}
-	
+
 	/**
 	 * Return a string rep of this object
 	 * that varies with an input string
@@ -42,7 +45,10 @@ public class Person3 {
 	 * @return the reversed string
 	 */
 	private String calc(String input) {
-	  //Person 3 put your implementation here
-	  return null;
+		String returnVal = "";
+		for (int i = input.length() - 1 ; i >= 0 ; i--) {
+			returnVal += input.substring(i, i+1);
+		}
+	  return returnVal;
 	}
 }
