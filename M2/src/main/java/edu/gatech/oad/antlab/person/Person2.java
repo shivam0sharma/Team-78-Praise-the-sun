@@ -1,12 +1,13 @@
 package edu.gatech.oad.antlab.person;
+import java.util.Stack;
 
 /**
  *  A simple class for person 2
  *  returns their name and a
  *  modified string 
  *
- * @author Bob
- * @version 1.1
+ * @author Eric Phan
+ * @version 1.0
  */
 public class Person2 {
     /** Holds the persons real name */
@@ -29,10 +30,23 @@ public class Person2 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-	private String calc(String input) {
-	  //Person 2 put your implementation here
-	  return null;
-	}
+    private String calc(String input) {
+        Stack calc = new Stack();
+        String random = "";
+        for(int i = 0; i < input.length(); i++) {
+            char temp = input.charAt(i);
+            if(temp >= 65 & temp < 88 || temp >= 97 && temp < 120) {
+                calc.push((char) (input.charAt(i) + 3));
+            }
+            else {
+                calc.push(((input.charAt(i)) * 6 / 9) - 20);
+            }
+        }
+        for(int z = 0; z <=  calc.size(); z++) {
+            random = random + calc.pop();
+        }
+        return random;
+    }
 	/**
 	 * Return a string rep of this object
 	 * that varies with an input string
