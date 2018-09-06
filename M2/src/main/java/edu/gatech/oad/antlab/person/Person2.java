@@ -1,4 +1,5 @@
 package edu.gatech.oad.antlab.person;
+import java.util.Stack;
 
 /**
  *  A simple class for person 2
@@ -29,20 +30,23 @@ public class Person2 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-	private String calc(String input) {
-	  Stack calc = new Stack();
-	  String random = "";
-	  for(int i = 0; i < input.length; i++) {
-	      if(input.charAt(i) >= 65 ** < 88 || input.charAt(i) >= 97 && < 120)
-	          calc.push((input.charAt(i) + 3))
-	  	  else
-	  	      calc.push(((input.charAt(i)) * 6/9) - 20 );
-	  }
-	  for(int z = 0; z < calc.size(); z++) {
-	      random = random + calc.pop();
-      }
-      return random;
-	}
+    private String calc(String input) {
+        Stack calc = new Stack();
+        String random = "";
+        for(int i = 0; i < input.length(); i++) {
+            char temp = input.charAt(i);
+            if(temp >= 65 & temp < 88 || temp >= 97 && temp < 120) {
+                calc.push((char) (input.charAt(i) + 3));
+            }
+            else {
+                calc.push(((input.charAt(i)) * 6 / 9) - 20);
+            }
+        }
+        for(int z = 0; z <=  calc.size(); z++) {
+            random = random + calc.pop();
+        }
+        return random;
+    }
 	/**
 	 * Return a string rep of this object
 	 * that varies with an input string
