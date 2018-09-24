@@ -27,6 +27,7 @@ public class Login extends AppCompatActivity {
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Welcome",Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     username.setText("");
                     password.setText("");
@@ -37,6 +38,7 @@ public class Login extends AppCompatActivity {
                 Intent logIntent = new Intent(this, Welcome.class);
                 startActivity(logIntent);
                 Toast.makeText(getApplicationContext(), "Abort Login!",Toast.LENGTH_SHORT).show();
+                finish();
                 break;
 
         }

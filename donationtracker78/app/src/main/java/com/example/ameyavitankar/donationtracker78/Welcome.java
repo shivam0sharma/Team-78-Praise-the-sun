@@ -20,6 +20,7 @@ public class Welcome extends AppCompatActivity {
             case R.id.loginBtn:
                 Intent loginIntent = new Intent(this, Login.class);
                 startActivity(loginIntent);
+                finish();
                 break;
             case R.id.signupBtn:
                 Toast.makeText(Welcome.this, "Register", Toast.LENGTH_SHORT).show();

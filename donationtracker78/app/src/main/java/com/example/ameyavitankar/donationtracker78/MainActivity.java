@@ -22,6 +22,7 @@ public class  MainActivity extends AppCompatActivity {
                 Intent logoutIntent = new Intent(this, Welcome.class);
                 startActivity(logoutIntent);
                 Toast.makeText(getApplicationContext(), "Logout Successful!",Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
     }
