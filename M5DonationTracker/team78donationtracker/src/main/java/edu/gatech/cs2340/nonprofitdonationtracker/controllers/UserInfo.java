@@ -12,6 +12,7 @@ import java.util.Map;
  */
 
 public class UserInfo {
+    private static int count = 0;
     private static Map<String, List<String>> loginInfo = new HashMap<>();
 
     public boolean isValidLogin(String email, String password) {
