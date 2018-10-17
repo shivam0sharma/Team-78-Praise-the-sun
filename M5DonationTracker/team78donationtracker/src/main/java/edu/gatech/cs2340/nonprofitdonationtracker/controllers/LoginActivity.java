@@ -337,7 +337,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: attempt authentication against a network service.
 
             try{
-                String link="http://192.168.2.104/checkLogin.php";
+                String link="http://75.15.180.181/checkLogin.php";
                 String data  = URLEncoder.encode("username", "UTF-8") + "=" +
                         URLEncoder.encode(mEmail, "UTF-8");
                 data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
