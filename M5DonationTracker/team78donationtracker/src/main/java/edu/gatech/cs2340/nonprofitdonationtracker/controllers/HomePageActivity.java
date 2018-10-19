@@ -17,16 +17,16 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        Bundle extras = getIntent().getExtras();
-        userEmail = extras.getString("user_email");
-        TextView welcomeText = this.findViewById(R.id.welcomeTxtView);
-        String welcomeMsg = String.format("Welcome %s!", userEmail.split("@")[0]);
-        welcomeText.setText(welcomeMsg);
 
     }
 
+    public void onClickLocations(View view) {
+        Intent intent = new Intent(this, LocationsActivity.class);
+        startActivity(intent);
+    }
     public void onClickLogout(View view) {
         Intent intent = new Intent(this, OpeningScreen.class);
         startActivity(intent);
+        finish();
     }
 }

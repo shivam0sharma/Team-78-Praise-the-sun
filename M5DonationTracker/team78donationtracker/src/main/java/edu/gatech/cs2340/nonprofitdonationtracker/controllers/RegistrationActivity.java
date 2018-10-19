@@ -33,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public void onClickCancel(View view) {
         Intent intent = new Intent(this, OpeningScreen.class);
         startActivity(intent);
+        finish();
     }
 
     private boolean updateUserInformation(View view) {
@@ -120,6 +121,7 @@ public class RegistrationActivity extends AppCompatActivity {
             
             Intent intent = new Intent(this, OpeningScreen.class);
             startActivity(intent);
+            finish();
 
 
         } catch(Exception e){

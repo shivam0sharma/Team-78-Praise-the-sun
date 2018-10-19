@@ -322,6 +322,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+
+    private void newHome() {
+        Intent intent = new Intent(this, HomePageActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public class UserLoginTask extends AsyncTask<String, Void, String> {
 
         private final String mEmail;
@@ -384,7 +391,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success.equals("1")) {
-                finish();
+                newHome();
             } else {
                 mPasswordView.setError(success);
                 mPasswordView.requestFocus();

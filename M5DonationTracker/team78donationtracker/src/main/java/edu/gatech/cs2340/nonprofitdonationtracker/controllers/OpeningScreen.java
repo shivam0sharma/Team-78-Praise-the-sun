@@ -18,10 +18,12 @@ public class OpeningScreen extends AppCompatActivity {
     public void onClickLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void onClickRegister(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
+        finish();
     }
 }
