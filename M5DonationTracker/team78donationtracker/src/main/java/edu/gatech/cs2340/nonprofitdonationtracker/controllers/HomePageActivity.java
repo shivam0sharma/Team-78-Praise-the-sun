@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import java.io.InputStream;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
 
 public class HomePageActivity extends AppCompatActivity {
 
@@ -16,7 +18,9 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
+        InputStream inputStream = getResources().openRawResource(R.raw.locationdata);
+        CharityDataProvider dataProvider = new CharityDataProvider(inputStream);
+        DummyContent.setup(dataProvider.getCharities());
 
     }
 

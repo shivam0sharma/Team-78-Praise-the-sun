@@ -1,5 +1,11 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +20,7 @@ public class Database {
         public String longitude;
         public String street_address;
         public String phone;
+
         public Location() {
             name = name;
             type = "Drop Off";
@@ -23,4 +30,5 @@ public class Database {
             phone = "(404) 555 - 3456";
         }
     }
+
 }

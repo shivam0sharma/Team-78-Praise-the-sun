@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
 
 public class LocationsActivity extends AppCompatActivity {
 
@@ -19,14 +20,16 @@ public class LocationsActivity extends AppCompatActivity {
 
         locationSpinner = (Spinner) findViewById(R.id.LocationSpinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Database.Locations);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DummyContent.ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(adapter);
     }
 
     public void onClickConfirm(View view) {
-        String location = (String) locationSpinner.getSelectedItem();
+        String location =  locationSpinner.getSelectedItem().toString();
         Database.current = location;
+
+
         Intent intent = new Intent(this, LocationInformationActivity.class);
         startActivity(intent);
     }
