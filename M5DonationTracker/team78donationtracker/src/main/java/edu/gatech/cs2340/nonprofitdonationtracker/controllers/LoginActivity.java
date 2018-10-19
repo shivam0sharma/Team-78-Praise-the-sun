@@ -386,7 +386,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success.equals("1")) {
                 finish();
             } else {
-                mPasswordView.setError(success);
+                mPasswordView.setError("Wrong Password");
                 mPasswordView.requestFocus();
             }
         }
