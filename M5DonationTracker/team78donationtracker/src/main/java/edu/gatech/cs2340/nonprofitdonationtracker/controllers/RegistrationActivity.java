@@ -9,7 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -98,15 +102,51 @@ public class RegistrationActivity extends AppCompatActivity {
         Spinner userType = (Spinner)findViewById(R.id.user_type_spinner_id);
         String selected_user_type = userType.getSelectedItem().toString();
 
-        try{
+
+
+
+        try {
+            String urlString = "http://75.15.180.181/createUser.php";; // URL to call
+            String data =  URLEncoder.encode("username", "UTF-8") + "=" +
+                    URLEncoder.encode(email_value.toString(), "UTF-8");
+
+            data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
+                    URLEncoder.encode(password_value.toString(), "UTF-8");
+
+            data += "&" + URLEncoder.encode("usertype", "UTF-8") + "=" +
+                    URLEncoder.encode(selected_user_type, "UTF-8");
+
+            data += "&" + URLEncoder.encode("name", "UTF-8") + "=" +
+                    URLEncoder.encode(name_value.toString(), "UTF-8"); //data to post
+
+            OutputStream out = null;
+            URL url = new URL(urlString);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+            writer.write(data);
+            writer.flush();
+            writer.close();
+            out.close();
+
+            urlConnection.connect();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+       /* try{
 
             String link="http://75.15.180.181/createUser.php";
             String data  = URLEncoder.encode("username", "UTF-8") + "=" +
                     URLEncoder.encode(email_value.toString(), "UTF-8");
+
             data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
                     URLEncoder.encode(password_value.toString(), "UTF-8");
+
             data += "&" + URLEncoder.encode("usertype", "UTF-8") + "=" +
                     URLEncoder.encode(selected_user_type, "UTF-8");
+
             data += "&" + URLEncoder.encode("name", "UTF-8") + "=" +
                     URLEncoder.encode(name_value.toString(), "UTF-8");
 
@@ -127,6 +167,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } catch(Exception e){
             System.out.println("Exception: " + e.getMessage());
         }
+        */
         /*if  (updateUserInformation(view)) {
             //takes user back to login page so that they can login with their credentials
             //TODO: set up validation in the LoginActivity class
