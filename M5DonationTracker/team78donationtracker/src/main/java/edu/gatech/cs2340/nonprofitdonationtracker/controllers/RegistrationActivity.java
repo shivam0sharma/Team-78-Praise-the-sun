@@ -1,6 +1,7 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -10,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -101,80 +104,81 @@ public class RegistrationActivity extends AppCompatActivity {
         //get user type
         Spinner userType = (Spinner)findViewById(R.id.user_type_spinner_id);
         String selected_user_type = userType.getSelectedItem().toString();
+        new RegistrationActivity.UserRegistrationTask(name_value.toString(), email_value.toString(), password_value.toString(), selected_user_type).execute(name_value.toString(), email_value.toString(), password_value.toString(), selected_user_type);
+    }
 
+    public class UserRegistrationTask extends AsyncTask<String, Void, String> {
 
+        private final String name;
+        private final String username;
+        private final String password;
+        private final String userType;
 
-
-        try {
-            String urlString = "http://75.15.180.181/createUser.php";; // URL to call
-            String data =  URLEncoder.encode("username", "UTF-8") + "=" +
-                    URLEncoder.encode(email_value.toString(), "UTF-8");
-
-            data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
-                    URLEncoder.encode(password_value.toString(), "UTF-8");
-
-            data += "&" + URLEncoder.encode("usertype", "UTF-8") + "=" +
-                    URLEncoder.encode(selected_user_type, "UTF-8");
-
-            data += "&" + URLEncoder.encode("name", "UTF-8") + "=" +
-                    URLEncoder.encode(name_value.toString(), "UTF-8"); //data to post
-
-            OutputStream out = null;
-            URL url = new URL(urlString);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            out = new BufferedOutputStream(urlConnection.getOutputStream());
-
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-            writer.write(data);
-            writer.flush();
-            writer.close();
-            out.close();
-
-            urlConnection.connect();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        UserRegistrationTask(String name, String username, String password, String userType) {
+            this.name = name;
+            this.username = username;
+            this.password = password;
+            this.userType = userType;
         }
 
-       /* try{
+        protected String doInBackground(String... params) {
+            // TODO: attempt authentication against a network service.
 
-            String link="http://75.15.180.181/createUser.php";
-            String data  = URLEncoder.encode("username", "UTF-8") + "=" +
-                    URLEncoder.encode(email_value.toString(), "UTF-8");
+            try{
+                String link="http://75.15.180.181/createUser.php?";
+                String data  = "name=" + name;
+                data+= "&password=" + password;
+                data+= "&userType=" + userType;
+                data+= "&username=" + username;
+                link = link + data;
+                System.out.println(link);
 
-            data += "&" + URLEncoder.encode("password", "UTF-8") + "=" +
-                    URLEncoder.encode(password_value.toString(), "UTF-8");
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
 
-            data += "&" + URLEncoder.encode("usertype", "UTF-8") + "=" +
-                    URLEncoder.encode(selected_user_type, "UTF-8");
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 
-            data += "&" + URLEncoder.encode("name", "UTF-8") + "=" +
-                    URLEncoder.encode(name_value.toString(), "UTF-8");
+                wr.write( data );
+                wr.flush();
 
-            URL url = new URL(link);
-            URLConnection conn = url.openConnection();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                StringBuilder sb = new StringBuilder();
+                String line = null;
 
-            wr.write( data );
-            wr.flush();
-            
-            Intent intent = new Intent(this, OpeningScreen.class);
-            startActivity(intent);
-            finish();
+                // Read Server Response
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
 
-
-        } catch(Exception e){
-            System.out.println("Exception: " + e.getMessage());
-        }
-        */
-        /*if  (updateUserInformation(view)) {
-            //takes user back to login page so that they can login with their credentials
-            //TODO: set up validation in the LoginActivity class
-            Intent intent = new Intent(this, OpeningScreen.class);
-            startActivity(intent);
-            //System.out.println("Infor entered.");
-        }
+                return "1";
+            } catch(Exception e){
+                System.out.println("Exception: " + e);
+                return "0";
+            }
+            /*for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
 */
+            // TODO: register the new account here.
+
+        }
+
+        @Override
+        protected void onPostExecute(String success) {
+
+            if (success.equals("1")) {
+                finish();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {}
     }
 }
