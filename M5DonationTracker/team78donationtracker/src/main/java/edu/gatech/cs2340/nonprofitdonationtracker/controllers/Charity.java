@@ -45,6 +45,9 @@ public class Charity implements Parcelable {
         type = (CharityType) in.readSerializable();
     }
 
+    public Charity() {
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(key);

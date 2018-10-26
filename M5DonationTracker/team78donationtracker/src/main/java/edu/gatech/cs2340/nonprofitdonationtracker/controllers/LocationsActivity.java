@@ -27,6 +27,7 @@ public class LocationsActivity extends AppCompatActivity {
 
     public void onClickConfirm(View view) {
         String location =  locationSpinner.getSelectedItem().toString();
+        System.out.println(location);
         Database.current = location;
 
 

@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Database {
     public static String current;
+    public static String currentDonation;
     public static List<String> Locations = Arrays.asList("AFD Station 4", "BOYS & GILRS CLUB W.W. WOOLFOLK", "PATHWAY UPPER ROOM CHRISTIAN MINISTRIES", "PAVILION OF HOPE INC", "D&D CONVENIENCE STORE", "KEEP NORTH FULTON BEAUTIFUL");
 
     public class Location {

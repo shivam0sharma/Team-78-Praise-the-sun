@@ -1,7 +1,7 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Charity;
-
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Donation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +24,15 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
+    public static final Map<String, ArrayList<Donation>> DONATIONS_MAP = new HashMap<String, ArrayList<Donation>>();
+
     public static void setup(ArrayList<Charity> charities) {
         removeAllItems();
         for (Charity charity: charities) {
             DummyItem d = new DummyItem(charity);
             addItem(d);
+            ArrayList<Donation> arr = new ArrayList<Donation>();
+            DONATIONS_MAP.put(charity.getName(), arr);
         }
     }
 

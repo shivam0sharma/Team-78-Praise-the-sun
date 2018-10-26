@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.content.Intent;
 
 import java.io.InputStream;
 
@@ -13,19 +14,17 @@ import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent
 public class LocationInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.print("SHIVAM");
         setContentView(R.layout.activity_location_information);
-        InputStream inputStream = getResources().openRawResource(R.raw.locationdata);
-        CharityDataProvider dataProvider = new CharityDataProvider(inputStream);
-        Charity charity = dataProvider.getCharities().get(0);
-        for (Charity charity1: dataProvider.getCharities()) {
-            if (charity1.getName().equals(Database.current)) {
-                charity = charity1;
+
+        String database = Database.current;
+        Charity charity = new Charity();
+        for (DummyContent.DummyItem dum : DummyContent.ITEMS) {
+            Charity ch = dum.charity;
+            if (ch.getName().equals(database)) {
+                charity = ch;
             }
         }
-//        Charity charity = DummyContent.ITEM_MAP.get(Database.current).charity;
-//        //Charity charity = (Charity) getIntent().getExtras().get("charity");
-//        System.out.print("SHIVAM" + charity);
+
         TextView tv1 = (TextView)findViewById(R.id.name);
         tv1.setText(charity.getName());
         TextView tv2 = (TextView)findViewById(R.id.type);
@@ -43,5 +42,10 @@ public class LocationInformationActivity extends AppCompatActivity {
 
     public void onClickBack(View view) {
         finish();
+    }
+
+    public void onClickDonation(View view) {
+        Intent intent = new Intent(this, DonationPageActivity.class);
+        startActivity(intent);
     }
 }
