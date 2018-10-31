@@ -20,6 +20,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/searchDonationBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="37dp"
+        android:onClick="onClickSearchDonations"
+        android:text="Search Donation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTxtView" />
+
+    <Button
         android:id="@+id/LogoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,11 +45,11 @@
         android:id="@+id/LocationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="13dp"
         android:onClick="onClickLocations"
         android:text="Locations"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeTxtView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchDonationBtn" />
 
 </android.support.constraint.ConstraintLayout>

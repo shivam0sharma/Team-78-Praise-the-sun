@@ -18,19 +18,19 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    public static final List<Charity> ITEMS = new ArrayList<Charity>();
+    public static final List<String> ITEMNAMES = new ArrayList<>();
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    public static final Map<String, Charity> ITEM_MAP = new HashMap<String, Charity>();
 
     public static final Map<String, ArrayList<Donation>> DONATIONS_MAP = new HashMap<String, ArrayList<Donation>>();
 
     public static void setup(ArrayList<Charity> charities) {
         removeAllItems();
         for (Charity charity: charities) {
-            DummyItem d = new DummyItem(charity);
-            addItem(d);
+            addItem(charity);
             ArrayList<Donation> arr = new ArrayList<Donation>();
             DONATIONS_MAP.put(charity.getName(), arr);
         }
@@ -41,9 +41,10 @@ public class DummyContent {
         ITEM_MAP.clear();
     }
 
-    private static void addItem(DummyItem item) {
+    private static void addItem(Charity item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEMNAMES.add(item.getName());
+        ITEM_MAP.put(item.getKey(), item);
     }
 
     /**

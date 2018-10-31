@@ -1,35 +1,16 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Database {
     public static String current;
     public static String currentDonation;
-    public static List<String> Locations = Arrays.asList("AFD Station 4", "BOYS & GILRS CLUB W.W. WOOLFOLK", "PATHWAY UPPER ROOM CHRISTIAN MINISTRIES", "PAVILION OF HOPE INC", "D&D CONVENIENCE STORE", "KEEP NORTH FULTON BEAUTIFUL");
+    public static List<Charity> charities = new ArrayList<>();
+    public static Map<String, ArrayList<Donation>> donations_map = new HashMap<>();
+    public static List<Donation> donations;
 
-    public class Location {
-        public String name;
-        public String type;
-        public String latitude;
-        public String longitude;
-        public String street_address;
-        public String phone;
-
-        public Location() {
-            name = name;
-            type = "Drop Off";
-            latitude = "33.75416";
-            longitude = "-84.37742";
-            street_address = "309 EDGEWOOD AVE SE";
-            phone = "(404) 555 - 3456";
-        }
-    }
 
 }

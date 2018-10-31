@@ -131,7 +131,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 data+= "&userType=" + userType;
                 data+= "&username=" + username;
                 link = link + data;
-                System.out.println(link);
 
                 URL url = new URL(link);
                 URLConnection conn = url.openConnection();

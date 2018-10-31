@@ -4,11 +4,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharityDataProvider {
+public class loadCharities {
 
     private ArrayList<Charity> charities = new ArrayList<Charity>();
 
-    public CharityDataProvider(InputStream inputStream) {
+    public loadCharities(InputStream inputStream) {
 
         CSVFile csvFile = new CSVFile(inputStream);
         List charityDataObjects = csvFile.read();

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
+
 import java.io.InputStream;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
@@ -19,13 +19,17 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         InputStream inputStream = getResources().openRawResource(R.raw.locationdata);
-        CharityDataProvider dataProvider = new CharityDataProvider(inputStream);
+        loadCharities dataProvider = new loadCharities(inputStream);
         DummyContent.setup(dataProvider.getCharities());
 
     }
 
+    public void onClickSearchDonations(View view) {
+        Intent intent = new Intent(this, SearchDonationActivity.class);
+        startActivity(intent);
+    }
     public void onClickLocations(View view) {
-        Intent intent = new Intent(this, LocationsActivity.class);
+        Intent intent = new Intent(this, SelectLocationActivity.class);
         startActivity(intent);
     }
     public void onClickLogout(View view) {

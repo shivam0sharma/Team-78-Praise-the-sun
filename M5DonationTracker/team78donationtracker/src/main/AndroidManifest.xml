@@ -27,11 +27,15 @@
             android:name=".controllers.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".controllers.HomePageActivity" />
-        <activity android:name=".controllers.LocationsActivity" />
         <activity android:name=".controllers.DonationPageActivity" />
         <activity android:name=".controllers.DonationInfoPageActivity" />
         <activity android:name=".controllers.AddDonationPageActivity" />
         <activity android:name=".controllers.LocationInformationActivity" />
+        <activity android:name=".controllers.SearchDonationNameActivity" />
+        <activity android:name=".controllers.EnterNameActivity" />
+        <activity android:name=".controllers.SearchDonationActivity" />
+        <activity android:name=".controllers.SelectCategoryActivity" />
+        <activity android:name=".controllers.SelectLocationActivity" />
         <activity android:name=".controllers.RegistrationActivity"></activity>
     </application>
 

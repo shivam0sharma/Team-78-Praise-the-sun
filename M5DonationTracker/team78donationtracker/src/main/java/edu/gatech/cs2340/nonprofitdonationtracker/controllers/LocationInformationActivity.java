@@ -18,8 +18,8 @@ public class LocationInformationActivity extends AppCompatActivity {
 
         String database = Database.current;
         Charity charity = new Charity();
-        for (DummyContent.DummyItem dum : DummyContent.ITEMS) {
-            Charity ch = dum.charity;
+        for (Charity dum : DummyContent.ITEMS) {
+            Charity ch = dum;
             if (ch.getName().equals(database)) {
                 charity = ch;
             }
