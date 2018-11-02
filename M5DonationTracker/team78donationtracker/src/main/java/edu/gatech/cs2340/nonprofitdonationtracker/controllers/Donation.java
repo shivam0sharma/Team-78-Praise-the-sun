@@ -1,6 +1,6 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
-public class Donation {
+public class Donation implements  java.io.Serializable {
     private String name;
     private String timeStamp;
     private String location;

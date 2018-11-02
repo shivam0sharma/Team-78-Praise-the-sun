@@ -1,13 +1,12 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Database;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
 import java.util.ArrayList;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
@@ -21,14 +20,14 @@ public class DonationPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation_page);
 
         donationSpinner = (Spinner) findViewById(R.id.DonationSpinner);
-        if (DummyContent.DONATIONS_MAP.get(Database.current).isEmpty()) {
+        if (DummyContent.DONATIONS_MAP.map.get(Database.current).isEmpty()) {
             ArrayList<String> arr = new ArrayList<String>();
             arr.add("No donations available.");
             ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, arr);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             donationSpinner.setAdapter(adapter);
         } else {
-            ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DummyContent.DONATIONS_MAP.get(Database.current));
+            ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DummyContent.DONATIONS_MAP.map.get(Database.current));
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             donationSpinner.setAdapter(adapter);
         }

@@ -1,11 +1,12 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy;
 
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Charity;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Donation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Charity;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Donation;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -13,7 +14,7 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class DummyContent implements java.io.Serializable {
 
     /**
      * An array of sample (dummy) items.
@@ -25,14 +26,15 @@ public class DummyContent {
      */
     public static final Map<String, Charity> ITEM_MAP = new HashMap<String, Charity>();
 
-    public static final Map<String, ArrayList<Donation>> DONATIONS_MAP = new HashMap<String, ArrayList<Donation>>();
+    public static DonationMap DONATIONS_MAP = new DonationMap();
 
     public static void setup(ArrayList<Charity> charities) {
         removeAllItems();
+
         for (Charity charity: charities) {
             addItem(charity);
             ArrayList<Donation> arr = new ArrayList<Donation>();
-            DONATIONS_MAP.put(charity.getName(), arr);
+            DONATIONS_MAP.map.put(charity.getName(), arr);
         }
     }
 

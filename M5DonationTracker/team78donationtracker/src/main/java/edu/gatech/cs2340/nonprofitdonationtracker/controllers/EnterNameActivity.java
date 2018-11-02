@@ -25,7 +25,7 @@ public class EnterNameActivity extends AppCompatActivity {
         String name_value = name.getText().toString();
         List<Donation> listDonations = new ArrayList<Donation>();
         for (Charity charity : DummyContent.ITEMS) {
-            for (Donation donation : DummyContent.DONATIONS_MAP.get(charity.getName())) {
+            for (Donation donation : DummyContent.DONATIONS_MAP.map.get(charity.getName())) {
                 if (donation.getName().contains(name_value)) {
                     listDonations.add(donation);
                 }

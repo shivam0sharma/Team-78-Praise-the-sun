@@ -2,12 +2,13 @@ package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 import android.view.View;
+import android.widget.TextView;
+
+import java.util.List;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
 import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
-import java.util.List;
 
 public class DonationInfoPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +16,7 @@ public class DonationInfoPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation_info_page);
 
         Donation donation = new Donation();
-        List<Donation> list = DummyContent.DONATIONS_MAP.get(Database.current);
+        List<Donation> list = DummyContent.DONATIONS_MAP.map.get(Database.current);
         for (Donation don : list) {
             if (don.getName().equals(Database.currentDonation)) {
                 donation = don;

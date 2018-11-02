@@ -8,9 +8,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 public class Location {
     private static JSONObject locationFile;
+    private List<String> locationName;
 
     public Location(URL url) {
         try {
@@ -42,9 +44,14 @@ public class Location {
         String response = "{\"result\":[{\"Name\":\"AFD Station 4\",\"Latitude\":\"33.75416\",\"Longitude\":\"-84.37742\",\"Type\":\"Drop Off\",\"Phone\":\"(404) 555 - 3456\",\"Address\":\"309 EDGEWOOD AVE SE\"},{\"Name\":\"BOYS & GILRS CLUB W.W. WOOLFOLK\",\"Latitude\":\"33.73182\",\"Longitude\":\"-84.43971\",\"Type\":\"Store\",\"Phone\":\"(404) 555 - 1234\",\"Address\":\"1642 RICHLAND RD\"},{\"Name\":\"PATHWAY UPPER ROOM CHRISTIAN MINISTRIES\",\"Latitude\":\"33.70866\",\"Longitude\":\"-84.41853\",\"Type\":\"Warehouse\",\"Phone\":\"(404) 555 - 5432\",\"Address\":\"1683 SYLVAN RD\"},{\"Name\":\"PAVILION OF HOPE INC\",\"Latitude\":\"33.80129\",\"Longitude\":\"-84.25537\",\"Type\":\"Warehouse\",\"Phone\":\"(404) 555 - 8765\",\"Address\":\"3558 EAST PONCE DE LEON AVE\"},{\"Name\":\"D&D CONVENIENCE STORE\",\"Latitude\":\"33.71747\",\"Longitude\":\"-84.2521\",\"Type\":\"Drop Off\",\"Phone\":\"(404) 555 - 9876\",\"Address\":\"2426 COLUMBIA DRIVE\"},{\"Name\":\"KEEP NORTH FULTON BEAUTIFUL\",\"Latitude\":\"33.96921\",\"Longitude\":\"-84.3688\",\"Type\":\"Store\",\"Phone\":\"(770) 555 - 7321\",\"Address\":\"470 MORGAN FALLS RD\"}]}";
         try {
             locationFile = new JSONObject(response);
+            JSONArray locationArray = locationFile.getJSONArray("result");
+            for (int i = 0; i < locationArray.length(); i++) {
+                locationName.add(locationArray.getJSONObject(i).getString("Name"));
+            }
         } catch (Exception e) {
             System.out.println("The json failed to be created");
         }
+
     }
 
     public static String[] getData() {
