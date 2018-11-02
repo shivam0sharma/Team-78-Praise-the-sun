@@ -21,8 +21,8 @@ import edu.gatech.cs2340.nonprofitdonationtracker.R;
 public class LocationInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new LocationInformationActivity.LocationInformationTask().execute();
         setContentView(R.layout.activity_location_information);
+        new LocationInformationActivity.LocationInformationTask().execute();
 
       /*  String database = Database.current;
         Charity charity = new Charity();

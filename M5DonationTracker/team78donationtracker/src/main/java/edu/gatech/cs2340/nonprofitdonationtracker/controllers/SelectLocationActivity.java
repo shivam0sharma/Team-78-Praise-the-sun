@@ -83,14 +83,17 @@ public class SelectLocationActivity extends AppCompatActivity {
 
                     //on a phone, we need to change windows to the detail view
                     Context context = v.getContext();
-                    //create our new intent with the new screen (activity)
-                    Intent intent = new Intent(context, LocationInformationActivity.class);
                     /*
                         pass along the id of the course so we can retrieve the correct data in
                         the next window
-                     */
+                    */
                     Database.current = holder.mLocation.getName();
+                    //create our new intent with the new screen (activity)
+                    Intent intent = new Intent(context, LocationInformationActivity.class);
+
+
                     //now just display the new window
+
                     context.startActivity(intent);
                 }
             });

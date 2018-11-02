@@ -47,7 +47,7 @@ public class Location {
         }
     }
 
-    public static String[] getData(String name) {
+    public static String[] getData() {
         String[] data = new String[6];
         try {
             JSONArray locationArray = locationFile.getJSONArray("result");
