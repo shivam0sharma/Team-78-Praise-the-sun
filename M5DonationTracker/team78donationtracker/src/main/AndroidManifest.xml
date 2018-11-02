@@ -36,6 +36,9 @@
         <activity android:name=".controllers.SearchDonationActivity" />
         <activity android:name=".controllers.SelectCategoryActivity" />
         <activity android:name=".controllers.SelectLocationActivity" />
+        <activity android:name=".controllers.SelectScopeActivity" />
+        <activity android:name=".controllers.SelectSingleLocationActivity" />
+        <activity android:name=".controllers.EmptyListActivity" />
         <activity android:name=".controllers.RegistrationActivity"></activity>
     </application>
 

@@ -30,16 +30,29 @@ public class SelectCategoryActivity extends AppCompatActivity {
     public void onClickConfirm(View view) {
         Category category =  Category.category(categorySpinner.getSelectedItem().toString());
         List<Donation> listDonations = new ArrayList<Donation>();
-        for (Charity charity : DummyContent.ITEMS) {
-            for (Donation donation : DummyContent.DONATIONS_MAP.get(charity.getName())) {
+        if (Database.scope.equals("All")) {
+            for (Charity charity : DummyContent.ITEMS) {
+                for (Donation donation : DummyContent.DONATIONS_MAP.get(charity.getName())) {
+                    if (donation.getCategory().equals(category)) {
+                        listDonations.add(donation);
+                    }
+                }
+            }
+        } else {
+            for (Donation donation : Database.donations) {
                 if (donation.getCategory().equals(category)) {
                     listDonations.add(donation);
                 }
             }
         }
         Database.donations = listDonations;
-        Intent intent = new Intent(this, SearchDonationNameActivity.class);
-        startActivity(intent);
+        if (Database.donations.isEmpty()) {
+            Intent intent = new Intent(this, EmptyListActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, SearchDonationNameActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void onClickCancel(View view) {

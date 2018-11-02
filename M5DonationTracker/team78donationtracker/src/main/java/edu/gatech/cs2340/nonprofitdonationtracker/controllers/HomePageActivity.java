@@ -25,7 +25,7 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public void onClickSearchDonations(View view) {
-        Intent intent = new Intent(this, SearchDonationActivity.class);
+        Intent intent = new Intent(this, SelectScopeActivity.class);
         startActivity(intent);
     }
     public void onClickLocations(View view) {

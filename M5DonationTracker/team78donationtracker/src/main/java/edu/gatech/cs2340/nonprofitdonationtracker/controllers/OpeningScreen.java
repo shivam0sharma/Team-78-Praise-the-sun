@@ -7,6 +7,8 @@ import android.view.View;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
 
+//THE FIRST SCREEN THE USER SEES
+
 public class OpeningScreen extends AppCompatActivity {
 
     @Override

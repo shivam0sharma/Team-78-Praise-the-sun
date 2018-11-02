@@ -11,6 +11,7 @@ public class Database {
     public static List<Charity> charities = new ArrayList<>();
     public static Map<String, ArrayList<Donation>> donations_map = new HashMap<>();
     public static List<Donation> donations;
+    public static String scope;
 
 
 }

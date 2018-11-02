@@ -24,16 +24,29 @@ public class EnterNameActivity extends AppCompatActivity {
         EditText name = (EditText)findViewById(R.id.nameText);
         String name_value = name.getText().toString();
         List<Donation> listDonations = new ArrayList<Donation>();
-        for (Charity charity : DummyContent.ITEMS) {
-            for (Donation donation : DummyContent.DONATIONS_MAP.get(charity.getName())) {
+        if (Database.scope.equals("All")) {
+            for (Charity charity : DummyContent.ITEMS) {
+                for (Donation donation : DummyContent.DONATIONS_MAP.get(charity.getName())) {
+                    if (donation.getName().contains(name_value)) {
+                        listDonations.add(donation);
+                    }
+                }
+            }
+        } else {
+            for (Donation donation : Database.donations) {
                 if (donation.getName().contains(name_value)) {
                     listDonations.add(donation);
                 }
             }
         }
         Database.donations = listDonations;
-        Intent intent = new Intent(this, SearchDonationNameActivity.class);
-        startActivity(intent);
+        if (Database.donations.isEmpty()) {
+            Intent intent = new Intent(this, EmptyListActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(this, SearchDonationNameActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void onClickCancel(View view) {
