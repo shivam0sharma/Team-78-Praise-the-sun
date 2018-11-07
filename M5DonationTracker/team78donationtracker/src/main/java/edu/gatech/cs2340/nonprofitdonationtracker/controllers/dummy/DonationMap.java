@@ -16,8 +16,4 @@ public class DonationMap implements Serializable {
     public DonationMap(HashMap<String, ArrayList<Donation>> map) {
         this.map = map;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> cdbe05badc0bc447837db74c79e6311166e23015
