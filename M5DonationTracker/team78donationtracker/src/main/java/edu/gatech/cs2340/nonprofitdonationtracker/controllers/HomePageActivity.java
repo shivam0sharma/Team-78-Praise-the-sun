@@ -46,6 +46,12 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickMap(View view) {
+        Intent intent = new Intent(this, GoogleMapActivity.class);
+        System.out.println("asdf");
+        startActivity(intent);
+    }
+
     public void onClickSearchDonations(View view) {
         Intent intent = new Intent(this, SelectScopeActivity.class);
         startActivity(intent);

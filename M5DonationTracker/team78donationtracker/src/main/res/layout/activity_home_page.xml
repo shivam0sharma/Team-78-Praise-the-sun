@@ -39,7 +39,7 @@
         android:onClick="onClickLogout"
         android:text="Logout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LocationBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/MapBtn" />
 
     <Button
         android:id="@+id/LocationBtn"
@@ -51,5 +51,16 @@
         android:text="Locations"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchDonationBtn" />
+
+    <Button
+        android:id="@+id/MapBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="13dp"
+        android:onClick="onClickMap"
+        android:text="Map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LocationBtn" />
 
 </android.support.constraint.ConstraintLayout>
