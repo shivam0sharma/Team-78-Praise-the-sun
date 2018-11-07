@@ -1,13 +1,12 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.Database;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
 import java.util.ArrayList;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
