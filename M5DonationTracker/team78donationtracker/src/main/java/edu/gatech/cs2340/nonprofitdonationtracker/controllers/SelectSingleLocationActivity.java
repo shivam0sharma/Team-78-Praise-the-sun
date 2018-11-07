@@ -89,7 +89,7 @@ public class SelectSingleLocationActivity extends AppCompatActivity {
                         pass along the id of the course so we can retrieve the correct data in
                         the next window
                      */
-                    Database.donations = DummyContent.DONATIONS_MAP.get(holder.mLocation.getName());
+                    Database.donations = DummyContent.DONATIONS_MAP.map.get(holder.mLocation.getName());
                     //now just display the new window
                     context.startActivity(intent);
                 }

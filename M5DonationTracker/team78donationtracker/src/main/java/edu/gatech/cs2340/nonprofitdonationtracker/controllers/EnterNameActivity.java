@@ -26,7 +26,7 @@ public class EnterNameActivity extends AppCompatActivity {
         List<Donation> listDonations = new ArrayList<Donation>();
         if (Database.scope.equals("All")) {
             for (Charity charity : DummyContent.ITEMS) {
-                for (Donation donation : DummyContent.DONATIONS_MAP.get(charity.getName())) {
+                for (Donation donation : DummyContent.DONATIONS_MAP.map.get(charity.getName())) {
                     if (donation.getName().contains(name_value)) {
                         listDonations.add(donation);
                     }

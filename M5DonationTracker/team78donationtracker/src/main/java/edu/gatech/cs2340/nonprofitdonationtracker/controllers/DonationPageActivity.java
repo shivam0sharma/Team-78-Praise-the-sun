@@ -21,14 +21,14 @@ public class DonationPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation_page);
 
         donationSpinner = (Spinner) findViewById(R.id.DonationSpinner);
-        if (DummyContent.DONATIONS_MAP.get(Database.current).isEmpty()) {
+        if (DummyContent.DONATIONS_MAP.map.get(Database.current).isEmpty()) {
             ArrayList<String> arr = new ArrayList<String>();
             arr.add("No donations available.");
             ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, arr);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             donationSpinner.setAdapter(adapter);
         } else {
-            ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DummyContent.DONATIONS_MAP.get(Database.current));
+            ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, DummyContent.DONATIONS_MAP.map.get(Database.current));
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             donationSpinner.setAdapter(adapter);
         }

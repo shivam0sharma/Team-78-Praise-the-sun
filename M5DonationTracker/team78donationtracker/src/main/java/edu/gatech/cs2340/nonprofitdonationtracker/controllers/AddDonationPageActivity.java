@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import android.content.Intent;
 
@@ -47,8 +52,19 @@ public class AddDonationPageActivity extends AppCompatActivity {
 
         Donation don = new Donation(name_value, time_value, location_value, short_value, full_value, value_value);
         don.setCategory(cat);
-        ArrayList<Donation> list = DummyContent.DONATIONS_MAP.get(Database.current);
-        list.add(don);
+        DummyContent.DONATIONS_MAP.map.get(Database.current).add(don);
+
+        try {
+            File directory = new File(getCacheDir(), "Donation.ser");
+            FileOutputStream fileOut = new FileOutputStream(directory);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(DummyContent.DONATIONS_MAP.map);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in donations.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
         Intent intent = new Intent(this, DonationPageActivity.class);
         startActivity(intent);
         finish();
