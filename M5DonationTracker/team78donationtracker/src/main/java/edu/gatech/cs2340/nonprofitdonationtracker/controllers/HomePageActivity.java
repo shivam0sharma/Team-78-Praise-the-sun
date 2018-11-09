@@ -36,9 +36,8 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        new HomePageActivity.HomePageTask().execute();
-        //get donations saved from cache
         try {
+            System.out.println("reached");
             File directory = new File(getCacheDir(), "Donation.ser");
             FileInputStream fileIn = new FileInputStream(directory);
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -53,6 +52,10 @@ public class HomePageActivity extends AppCompatActivity {
             c.printStackTrace();
             return;
         }
+
+        new HomePageActivity.HomePageTask().execute();
+        //get donations saved from cache
+
     }
 
     public class HomePageTask extends AsyncTask<String, Void, String> {
@@ -65,7 +68,6 @@ public class HomePageActivity extends AppCompatActivity {
             // TODO: attempt authentication against a network service.
             System.out.println("Doing in background...");
             try{
-                String link="http://75.15.180.181/getData.php";
 
                 URL p = new URL("http://75.15.180.181/getData.php");
                 URLConnection pp = p.openConnection();
@@ -109,13 +111,11 @@ public class HomePageActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String success) {
-            //do something
             System.out.println(success);
         }
 
         @Override
         protected void onCancelled() {
-            //do something
         }
     }
 

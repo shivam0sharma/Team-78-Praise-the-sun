@@ -53,6 +53,7 @@ public class AddDonationPageActivity extends AppCompatActivity {
         Donation don = new Donation(name_value, time_value, location_value, short_value, full_value, value_value);
         don.setCategory(cat);
         DummyContent.DONATIONS_MAP.map.get(Database.current).add(don);
+        System.out.println(DummyContent.DONATIONS_MAP.map.get(Database.current));
 
         try {
             File directory = new File(getCacheDir(), "Donation.ser");
@@ -61,7 +62,7 @@ public class AddDonationPageActivity extends AppCompatActivity {
             out.writeObject(DummyContent.DONATIONS_MAP.map);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in donations.ser");
+            System.out.println("Serialized data is saved in donations.ser");
         } catch (IOException i) {
             i.printStackTrace();
         }
