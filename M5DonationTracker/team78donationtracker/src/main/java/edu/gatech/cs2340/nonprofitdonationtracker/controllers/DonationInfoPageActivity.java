@@ -8,37 +8,46 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Donation information page
+ */
 public class DonationInfoPageActivity extends AppCompatActivity {
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_info_page);
 
         Donation donation = new Donation();
-        List<Donation> list = DummyContent.DONATIONS_MAP.map.get(Database.current);
+        List<Donation> list = InfoDump.DONATIONS_MAP.map.get(InfoDump.current);
         for (Donation don : list) {
-            if (don.getName().equals(Database.currentDonation)) {
+            String n = don.getName();
+            if (n.equals(InfoDump.currentDonation)) {
                 donation = don;
             }
         }
-        TextView tv1 = (TextView)findViewById(R.id.nameText);
+        TextView tv1 = findViewById(R.id.nameText);
         tv1.setText(donation.getName());
-        TextView tv2 = (TextView)findViewById(R.id.timeStampText);
+        TextView tv2 = findViewById(R.id.timeStampText);
         tv2.setText(donation.getTimeStamp());
-        TextView tv3 = (TextView)findViewById(R.id.shortDescriptionText);
+        TextView tv3 = findViewById(R.id.shortDescriptionText);
         tv3.setText(donation.getShortDescription());
-        TextView tv4 = (TextView)findViewById(R.id.fullDescriptionText);
+        TextView tv4 = findViewById(R.id.fullDescriptionText);
         tv4.setText(donation.getFullDescription());
-        TextView tv5 = (TextView)findViewById(R.id.valueText);
+        TextView tv5 = findViewById(R.id.valueText);
         tv5.setText(Double.toString(donation.getValue()));
-        TextView tv6 = (TextView)findViewById(R.id.categoryText);
+        TextView tv6 = findViewById(R.id.categoryText);
         tv6.setText(Category.getCategory(donation.getCategory()));
-        TextView tv7 = (TextView) findViewById(R.id.locationText);
-        tv7.setText(Database.current);
+        TextView tv7 = findViewById(R.id.locationText);
+        tv7.setText(InfoDump.current);
 
     }
 
+    /**
+     * Goes back to previous screen.
+     * @param view current view
+     */
     public void onClickBack(View view) {
         finish();
     }

@@ -11,36 +11,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Enter name page
+ */
 public class EnterNameActivity extends AppCompatActivity {
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_name);
     }
 
+    /**
+     * Goes to search donation name page
+     * @param view current view
+     */
     public void OnClickConfirm(View view) {
-        EditText name = (EditText)findViewById(R.id.nameText);
-        String name_value = name.getText().toString();
-        List<Donation> listDonations = new ArrayList<Donation>();
-        if (Database.scope.equals("All")) {
-            for (Charity charity : DummyContent.ITEMS) {
-                for (Donation donation : DummyContent.DONATIONS_MAP.map.get(charity.getName())) {
-                    if (donation.getName().contains(name_value)) {
+        EditText name = findViewById(R.id.nameText);
+        CharSequence n = name.getText();
+        String name_value = n.toString();
+        List<Donation> listDonations = new ArrayList<>();
+        if ("All".equals(InfoDump.scope)) {
+            for (Charity charity : InfoDump.ITEMS) {
+                for (Donation donation : InfoDump.DONATIONS_MAP.map.get(charity.getName())) {
+                    String na = donation.getName();
+                    if (na.contains(name_value)) {
                         listDonations.add(donation);
                     }
                 }
             }
         } else {
-            for (Donation donation : Database.donations) {
-                if (donation.getName().contains(name_value)) {
+            for (Donation donation : InfoDump.donations) {
+                String na = donation.getName();
+                if (na.contains(name_value)) {
                     listDonations.add(donation);
                 }
             }
         }
-        Database.donations = listDonations;
-        if (Database.donations.isEmpty()) {
+        InfoDump.donations = listDonations;
+        if (InfoDump.donations.isEmpty()) {
             Intent intent = new Intent(this, EmptyListActivity.class);
             startActivity(intent);
         } else {
@@ -49,6 +60,10 @@ public class EnterNameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Goes back to previous page
+     * @param view current view
+     */
     public void onClickCancel(View view) {
         finish();
     }

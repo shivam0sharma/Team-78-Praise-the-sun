@@ -2,7 +2,6 @@ package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -11,19 +10,21 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Google map page
+ */
 public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private MapView mapView;
-    private GoogleMap gmap;
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_map);
@@ -38,6 +39,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
     }
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
@@ -83,21 +85,25 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        gmap = googleMap;
-        gmap.setMinZoomPreference(12);
-        for (Charity charity : DummyContent.ITEMS) {
+        googleMap.setMinZoomPreference(12);
+        for (Charity charity : InfoDump.ITEMS) {
             LatLng charLatLng = new LatLng(charity.getLatitude(), charity.getLongitude());
-            Marker chari = gmap.addMarker(new MarkerOptions()
-                    .position(charLatLng)
-                    .title(charity.getName())
-                    .snippet("Phone number: " + charity.getPhoneNumber()));
+            MarkerOptions mO = new MarkerOptions();
+            mO = mO.position(charLatLng);
+            mO = mO.title(charity.getName());
+            mO = mO.snippet("Phone number: " + charity.getPhoneNumber());
+            googleMap.addMarker(mO);
         }
         LatLng atl = new LatLng(33.7490, -84.3880);
-        UiSettings uiSettings = gmap.getUiSettings();
+        UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
     }
 
+    /**
+     * Goes back to previous page
+     * @param view current view
+     */
     public void onClickBack(View view) {
         finish();
     }
