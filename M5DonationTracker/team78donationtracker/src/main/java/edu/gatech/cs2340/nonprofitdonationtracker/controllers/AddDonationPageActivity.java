@@ -72,7 +72,7 @@ public class AddDonationPageActivity extends AppCompatActivity {
             out.writeObject(DummyContent.DONATIONS_MAP.map);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in donations.ser");
+            System.out.println("Serialized data is saved in donations.ser" + DummyContent.DONATIONS_MAP.map.toString());
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -120,8 +120,10 @@ public class AddDonationPageActivity extends AppCompatActivity {
                 data += "&location=" + location;
                 data += "&shortDescription=" + shortDescription;
                 data += "&longDescription=" + longDescription;
-                data += "&category" + category;
+                data += "&category=" + category;
                 link = link + data;
+
+                System.out.println("Link is now " + link);
 
                 URL url = new URL(link);
                 URLConnection conn = url.openConnection();

@@ -9,17 +9,17 @@ public enum Category {
     public static String getCategory(Category input) {
         switch(input) {
             case CLOTHING:
-                return "Clothing";
+                return "CLOTHING";
             case HAT:
-                return "Hat";
+                return "HAT";
             case KITCHEN:
-                return "Kitchen";
+                return "KITCHEN";
             case ELECTRONICS:
-                return "Electronics";
+                return "ELECTRONICS";
             case HOUSEHOLD:
-                return "Household";
+                return "HOUSEHOLD";
             default:
-                return "Other";
+                return "OTHER";
         }
     }
     public static Category category(String string) {
