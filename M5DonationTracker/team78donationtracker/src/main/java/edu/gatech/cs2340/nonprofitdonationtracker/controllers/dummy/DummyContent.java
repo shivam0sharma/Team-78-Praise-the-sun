@@ -34,7 +34,6 @@ public class DummyContent implements java.io.Serializable {
         for (Charity charity: charities) {
             addItem(charity);
             ArrayList<Donation> arr = new ArrayList<Donation>();
-            DONATIONS_MAP.map.put(charity.getName(), arr);
         }
     }
 

@@ -3,6 +3,7 @@ package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -95,5 +96,9 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         UiSettings uiSettings = gmap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+    }
+
+    public void onClickBack(View view) {
+        finish();
     }
 }
