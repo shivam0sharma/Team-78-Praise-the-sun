@@ -1,6 +1,8 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,10 +11,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import android.content.Intent;
 
@@ -50,9 +57,12 @@ public class AddDonationPageActivity extends AppCompatActivity {
         String category =  categorySpinner.getSelectedItem().toString();
         Category cat = Category.category(category);
 
+        System.out.println("why am I here");
         Donation don = new Donation(name_value, time_value, location_value, short_value, full_value, value_value);
         don.setCategory(cat);
         DummyContent.DONATIONS_MAP.map.get(Database.current).add(don);
+
+        new AddDonationPageActivity.DonationTask(name_value.toString(), time_value.toString(), location_value.toString(), short_value.toString(), full_value.toString(), value_value.toString(), category).execute(name_value.toString(), time_value.toString(), location_value.toString(), short_value.toString(), full_value.toString(), value_value.toString(), category);
 
         try {
             File directory = new File(getCacheDir(), "Donation.ser");
@@ -75,4 +85,69 @@ public class AddDonationPageActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    public class DonationTask extends AsyncTask<String, Void, String> {
+
+        private final String donationName;
+        private final String timeStamp;
+        private final String location;
+        private final String shortDescription;
+        private final String longDescription;
+        private final String donationValue;
+        private final String category;
+
+        DonationTask(String donationName, String timeStamp, String location, String shortDescription, String longDescription, String donationValue, String category) {
+            this.donationName = donationName;
+            this.timeStamp = timeStamp;
+            this.donationValue = donationValue;
+            this.location = location;
+            this.shortDescription = shortDescription;
+            this.longDescription = longDescription;
+            this.category = category;
+        }
+        @Override
+
+        protected String doInBackground(String... params) {
+            System.out.println("Getting in here");
+
+            try {
+                String link = "http://75.15.180.181/createDonation.php?";
+                String data = "donationName=" + donationName;
+                data += "&timeStamp=" + timeStamp;
+                data += "&donationValue=" + donationValue;
+                data += "&location=" + location;
+                data += "&shortDescription=" + shortDescription;
+                data += "&longDescription=" + longDescription;
+                data += "&category" + category;
+                link = link + data;
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write(data);
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+
+                return "1";
+            } catch (Exception e) {
+                System.out.println("Exception: " + e);
+                return "0";
+            }
+        }
+    }
+
 }
