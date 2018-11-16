@@ -14,9 +14,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Select location page
+ */
 public class SelectLocationActivity extends AppCompatActivity {
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_location);
@@ -27,11 +31,13 @@ public class SelectLocationActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SelectLocationActivity.SimpleCourseRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new
+                SelectLocationActivity.SimpleCourseRecyclerViewAdapter());
     }
 
     public class SimpleCourseRecyclerViewAdapter
-            extends RecyclerView.Adapter<SelectLocationActivity.SimpleCourseRecyclerViewAdapter.ViewHolder> {
+            extends RecyclerView.Adapter<SelectLocationActivity.
+            SimpleCourseRecyclerViewAdapter.ViewHolder> {
 
         /**
          * Collection of the items to be shown in this list.
@@ -40,31 +46,34 @@ public class SelectLocationActivity extends AppCompatActivity {
 
         /**
          * set the items to be used by the adapter
-         * @param items the list of items to be displayed in the recycler view
          */
-        public SimpleCourseRecyclerViewAdapter(List<Charity> items) {
-            mLocations = items;
+        SimpleCourseRecyclerViewAdapter() {
+            mLocations = InfoDump.ITEMS;
         }
 
+        @NonNull
         @Override
-        public SelectLocationActivity.SimpleCourseRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public SelectLocationActivity.SimpleCourseRecyclerViewAdapter.
+                ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             /*
 
               This sets up the view for each individual item in the recycler display
               To edit the actual layout, we would look at: res/layout/course_list_content.xml
               If you look at the example file, you will see it currently just 2 TextView elements
              */
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.location_list_content, parent, false);
+            LayoutInflater lI = LayoutInflater.from(parent.getContext());
+            View view = lI.inflate(R.layout.location_list_content, parent, false);
             return new SelectLocationActivity.SimpleCourseRecyclerViewAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final SelectLocationActivity.SimpleCourseRecyclerViewAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final SelectLocationActivity.
+                SimpleCourseRecyclerViewAdapter.ViewHolder holder, int position) {
 
             /*
-            This is where we have to bind each data element in the list (given by position parameter)
-            to an element in the view (which is one of our two TextView widgets
+            This is where we have to bind each data element in the list
+            (given by position parameter) to an element in the view (which
+            is one of our two TextView widgets
              */
             //start by getting the element at the correct position
             holder.mLocation = mLocations.get(position);
@@ -72,7 +81,8 @@ public class SelectLocationActivity extends AppCompatActivity {
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mLocationView.setText(mLocations.get(position).getName());
+            Charity c = mLocations.get(position);
+            holder.mLocationView.setText(c.getName());
 
             /*
              * set up a listener to handle if the user clicks on this list item, what should happen?
@@ -87,7 +97,7 @@ public class SelectLocationActivity extends AppCompatActivity {
                         pass along the id of the course so we can retrieve the correct data in
                         the next window
                     */
-                    Database.current = holder.mLocation.getName();
+                    InfoDump.current = holder.mLocation.getName();
                     //create our new intent with the new screen (activity)
                     Intent intent = new Intent(context, LocationInformationActivity.class);
 
@@ -111,16 +121,21 @@ public class SelectLocationActivity extends AppCompatActivity {
          */
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mLocationView;
-            public Charity mLocation;
+            final View mView;
+            final TextView mLocationView;
+            Charity mLocation;
 
-            public ViewHolder(View view) {
+            /**
+             * ViewHolder constructor
+             * @param view current view
+             */
+            ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mLocationView = (TextView) view.findViewById(R.id.location);
+                mLocationView = view.findViewById(R.id.location);
             }
 
+            @NonNull
             @Override
             public String toString() {
                 return super.toString() + " '" + mLocationView.getText() + "'";
@@ -128,6 +143,10 @@ public class SelectLocationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Goes back to previous page
+     * @param view current view
+     */
     public void onClickCancel(View view) {
         finish();
     }

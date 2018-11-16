@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="0dp"
     android:layout_marginRight="0dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="edu.gatech.cs2340.nonprofitdonationtracker.controllers.SearchDonationNameActivity"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+    tools:context=
+        "edu.gatech.cs2340.nonprofitdonationtracker.controllers.SearchDonationNameActivity"
     tools:listitem="@layout/donation_list_content" />

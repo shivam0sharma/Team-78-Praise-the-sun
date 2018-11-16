@@ -1,11 +1,19 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
+/**
+ * Charity type enum.
+ */
 public enum CharityType {
 
     DROP_OFF, STORE, WAREHOUSE;
 
-    public String getName() {
-        switch (this) {
+    /**
+     * Returns name
+     * @param charityType charity type
+     * @return name
+     */
+    public static CharSequence getName(CharityType charityType) {
+        switch (charityType) {
             case DROP_OFF:
                 return "Drop Off";
             case STORE:
@@ -17,6 +25,11 @@ public enum CharityType {
         }
     }
 
+    /**
+     * Returns charity type of string
+     * @param string string of charity type
+     * @return the charity type
+     */
     public static CharityType charityType(String string) {
         switch (string) {
             case "Drop Off":

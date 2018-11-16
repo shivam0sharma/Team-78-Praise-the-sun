@@ -10,15 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.ArrayList;
-
 
 import java.util.List;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Search donation name screen.
+ */
 public class SearchDonationNameActivity extends AppCompatActivity {
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_donation_name_page);
@@ -29,7 +32,7 @@ public class SearchDonationNameActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleCourseRecyclerViewAdapter(Database.donations));
+        recyclerView.setAdapter(new SimpleCourseRecyclerViewAdapter(InfoDump.donations));
     }
 
     public class SimpleCourseRecyclerViewAdapter
@@ -44,29 +47,31 @@ public class SearchDonationNameActivity extends AppCompatActivity {
          * set the items to be used by the adapter
          * @param items the list of items to be displayed in the recycler view
          */
-        public SimpleCourseRecyclerViewAdapter(List<Donation> items) {
+        SimpleCourseRecyclerViewAdapter(List<Donation> items) {
             mDonations = items;
         }
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             /*
 
               This sets up the view for each individual item in the recycler display
               To edit the actual layout, we would look at: res/layout/course_list_content.xml
               If you look at the example file, you will see it currently just 2 TextView elements
              */
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.donation_list_content, parent, false);
+            LayoutInflater lI = LayoutInflater.from(parent.getContext());
+            View view = lI.inflate(R.layout.donation_list_content, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
             /*
-            This is where we have to bind each data element in the list (given by position parameter)
-            to an element in the view (which is one of our two TextView widgets
+            This is where we have to bind each data element in the list
+            (given by position parameter) to an element in the view (which
+            is one of our two TextView widgets
              */
             //start by getting the element at the correct position
             holder.mDonation = mDonations.get(position);
@@ -74,7 +79,8 @@ public class SearchDonationNameActivity extends AppCompatActivity {
               Now we bind the data to the widgets.  In this case, pretty simple, put the id in one
               textview and the string rep of a course in the other.
              */
-            holder.mDonationView.setText(mDonations.get(position).getName());
+            Donation d = mDonations.get(position);
+            holder.mDonationView.setText(d.getName());
 
             /*
              * set up a listener to handle if the user clicks on this list item, what should happen?
@@ -91,7 +97,7 @@ public class SearchDonationNameActivity extends AppCompatActivity {
                         pass along the id of the course so we can retrieve the correct data in
                         the next window
                      */
-                    Database.currentDonation = holder.mDonation.getName();
+                    InfoDump.currentDonation = holder.mDonation.getName();
                     //now just display the new window
                     context.startActivity(intent);
                 }
@@ -110,16 +116,21 @@ public class SearchDonationNameActivity extends AppCompatActivity {
          */
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mDonationView;
-            public Donation mDonation;
+            final View mView;
+            final TextView mDonationView;
+            Donation mDonation;
 
-            public ViewHolder(View view) {
+            /**
+             * ViewHolder constructor.
+             * @param view current view
+             */
+            ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mDonationView = (TextView) view.findViewById(R.id.donation);
+                mDonationView = view.findViewById(R.id.donation);
             }
 
+            @NonNull
             @Override
             public String toString() {
                 return super.toString() + " '" + mDonationView.getText() + "'";
@@ -127,6 +138,10 @@ public class SearchDonationNameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Goes back to previous screen.
+     * @param view current view
+     */
     public void onClickCancel(View view) {
         finish();
     }

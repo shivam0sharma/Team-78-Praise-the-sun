@@ -7,8 +7,10 @@ import android.view.View;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
 
-//THE FIRST SCREEN THE USER SEES
 
+/**
+ * The opening screen. The first screen the user sees.
+ */
 public class OpeningScreen extends AppCompatActivity {
 
     @Override
@@ -17,12 +19,20 @@ public class OpeningScreen extends AppCompatActivity {
         setContentView(R.layout.activity_opening_screen);
     }
 
+    /**
+     * Goes to login screen.
+     * @param view current view
+     */
     public void onClickLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * Goes to registration screen.
+     * @param view current view
+     */
     public void onClickRegister(View view) {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);

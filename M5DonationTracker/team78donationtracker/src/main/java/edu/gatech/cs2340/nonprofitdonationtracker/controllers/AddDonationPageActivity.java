@@ -15,64 +15,83 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import android.content.Intent;
+
+
+import java.io.ObjectOutput;
+
+import java.util.List;
+
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Add donation page.
+ */
 public class AddDonationPageActivity extends AppCompatActivity {
 
     private Spinner categorySpinner;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation_page);
 
-        categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+        categorySpinner = findViewById(R.id.categorySpinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, Category.list());
+        ArrayAdapter<String> adapter = new
+                ArrayAdapter(this,android.R.layout.simple_spinner_item, Category.list());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
-        TextView tv = (TextView)findViewById(R.id.textView20);
-        tv.setText(Database.current);
+        TextView tv = findViewById(R.id.textView20);
+        tv.setText(InfoDump.current);
     }
 
+    /**
+     * Adds new donation.
+     * @param view current view
+     */
     public void onClickAddNew(View view) {
-        EditText name = (EditText)findViewById(R.id.itemNameText);
-        String name_value = name.getText().toString();
-        EditText timeStamp = (EditText)findViewById(R.id.timeStampText);
-        String time_value = timeStamp.getText().toString();
-        String location_value = Database.current;
-        EditText shortDescription = (EditText)findViewById(R.id.shortDescriptionText);
-        String short_value = shortDescription.getText().toString();
-        EditText fullDescription = (EditText)findViewById(R.id.fullDescriptionText);
-        String full_value = fullDescription.getText().toString();
-        EditText value = (EditText)findViewById(R.id.valueText);
-        Double value_value = Double.parseDouble(value.getText().toString());
-        String category =  categorySpinner.getSelectedItem().toString();
+        EditText name = findViewById(R.id.itemNameText);
+        CharSequence n = name.getText();
+        String name_value = n.toString();
+        EditText timeStamp = findViewById(R.id.timeStampText);
+        CharSequence tV = timeStamp.getText();
+        String time_value = tV.toString();
+        String location_value = InfoDump.current;
+        EditText shortDescription = findViewById(R.id.shortDescriptionText);
+        CharSequence sD = shortDescription.getText();
+        String short_value = sD.toString();
+        EditText fullDescription = findViewById(R.id.fullDescriptionText);
+        CharSequence fD = fullDescription.getText();
+        String full_value = fD.toString();
+        EditText value = findViewById(R.id.valueText);
+        CharSequence v = value.getText();
+        Double value_value = Double.parseDouble(v.toString());
+        Object c = categorySpinner.getSelectedItem();
+        String category =  c.toString();
         Category cat = Category.category(category);
 
-        System.out.println("why am I here");
         Donation don = new Donation(name_value, time_value, location_value, short_value, full_value, value_value);
         don.setCategory(cat);
-        DummyContent.DONATIONS_MAP.map.get(Database.current).add(don);
-        System.out.println(DummyContent.DONATIONS_MAP.map.get(Database.current));
+        List<Donation> d = InfoDump.DONATIONS_MAP.map.get(InfoDump.current);
+        d.add(don);
 
         new AddDonationPageActivity.DonationTask(name_value.toString(), time_value.toString(), location_value.toString(), short_value.toString(), full_value.toString(), value_value.toString(), category).execute(name_value.toString(), time_value.toString(), location_value.toString(), short_value.toString(), full_value.toString(), value_value.toString(), category);
 
         try {
             File directory = new File(getCacheDir(), "Donation.ser");
             FileOutputStream fileOut = new FileOutputStream(directory);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(DummyContent.DONATIONS_MAP.map);
+            ObjectOutput out = new ObjectOutputStream(fileOut);
+            out.writeObject(InfoDump.DONATIONS_MAP.map);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in donations.ser" + DummyContent.DONATIONS_MAP.map.toString());
+            System.out.println("Serialized data is saved in donations.ser" + InfoDump.DONATIONS_MAP.map.toString());
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -81,6 +100,10 @@ public class AddDonationPageActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Goes back to donation page.
+     * @param view current view
+     */
     public void onClickCancel(View view) {
         Intent intent = new Intent(this, DonationPageActivity.class);
         startActivity(intent);

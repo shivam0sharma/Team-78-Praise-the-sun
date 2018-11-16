@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,58 +13,55 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DonationMap;
-import edu.gatech.cs2340.nonprofitdonationtracker.controllers.dummy.DummyContent;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.DonationMap;
+import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 
+/**
+ * Home page after logging in.
+ */
 public class HomePageActivity extends AppCompatActivity {
 
-    private String userEmail;
-
+    boolean loadedDonation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
+        //get donations saved from cache
         try {
-            System.out.println("reached");
             File directory = new File(getCacheDir(), "Donation.ser");
             FileInputStream fileIn = new FileInputStream(directory);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            DummyContent.DONATIONS_MAP = new DonationMap((HashMap<String, ArrayList<Donation>>)in.readObject());
+            InfoDump.DONATIONS_MAP = new
+                    DonationMap((HashMap<String, ArrayList<Donation>>)in.readObject());
             in.close();
             fileIn.close();
+            loadedDonation = true;
         } catch (IOException i) {
-            i.printStackTrace();
-            return;
+            System.out.println("No saved donations.");
         } catch (ClassNotFoundException c) {
             System.out.println("Donation class not found");
             c.printStackTrace();
-            return;
         }
 
-        new HomePageActivity.HomePageTask().execute();
-        //get donations saved from cache
+        HomePageTask hPT = new HomePageActivity.HomePageTask();
+        hPT.execute();
 
     }
 
-    public class HomePageTask extends AsyncTask<String, Void, String> {
-
-        HomePageTask () {
-        }
+    class HomePageTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            // TODO: attempt authentication against a network service.
             System.out.println("Doing in background...");
             try{
 
@@ -73,16 +69,17 @@ public class HomePageActivity extends AppCompatActivity {
                 URLConnection pp = p.openConnection();
                 BufferedReader in = new BufferedReader(new InputStreamReader(pp.getInputStream()));
                 String response = "";
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
+                String inputLine = in.readLine();
+                while ((inputLine) != null) {
                     response += inputLine;
+                    inputLine = in.readLine();
                 }
                 in.close();
 
                 JSONObject locationFile = new JSONObject(response);
                 JSONArray locationArray = locationFile.getJSONArray("result");
-                JSONObject current = null;
-                ArrayList<Charity> charities = new ArrayList<Charity>();
+                JSONObject current;
+                Collection<Charity> charities = new ArrayList<>();
                 for (int i = 0; i < locationArray.length(); i++) {
                     Charity newCharity = new Charity();
                     current = locationArray.getJSONObject(i);
@@ -100,7 +97,7 @@ public class HomePageActivity extends AppCompatActivity {
                     newCharity.setPhoneNumber(phone);
                     charities.add(newCharity);
                 }
-                DummyContent.setup(charities);
+                InfoDump.setup(charities);
 
 
                 URL p2 = new URL("http://75.15.180.181/getDonations.php");
@@ -127,14 +124,21 @@ public class HomePageActivity extends AppCompatActivity {
                     don = new Donation(current2.getString("donationName"),current2.getString("timeStamp"),current2.getString("location"),current2.getString("shortDescription"),current2.getString("longDescription"),current2.getDouble("donationValue"));
                     don.setCategory( Category.valueOf(current2.getString("category")));
                     System.out.println("the donation is " + don);
-                    DummyContent.DONATIONS_MAP.map.get(Database.current).add(don);
+                    InfoDump.DONATIONS_MAP.map.get(InfoDump.current).add(don);
 
                 }
+                if (loadedDonation) {
+                    InfoDump.setup(charities);
+                } else {
+                    InfoDump.setUpEverything(charities);
+                }
+
+
                 return "yes" ;
 
             } catch(Exception e){
                 System.out.println(e.getMessage());
-                return new String("Exception: " + e.getMessage());
+                return "Exception: " + e.getMessage();
             }
         }
 
@@ -148,20 +152,37 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Goes to google map screen.
+     * @param view current view
+     */
     public void onClickMap(View view) {
         Intent intent = new Intent(this, GoogleMapActivity.class);
-        System.out.println("asdf");
         startActivity(intent);
     }
 
+    /**
+     * Goes to search donation screen.
+     * @param view current view
+     */
     public void onClickSearchDonations(View view) {
         Intent intent = new Intent(this, SelectScopeActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Goes to locations screen.
+     * @param view current view
+     */
     public void onClickLocations(View view) {
         Intent intent = new Intent(this, SelectLocationActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Logs out and goes back to opening screen.
+     * @param view current view
+     */
     public void onClickLogout(View view) {
         Intent intent = new Intent(this, OpeningScreen.class);
         startActivity(intent);

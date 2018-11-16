@@ -56,6 +56,7 @@
 
             <EditText
                 android:id="@+id/shortDescriptionText"
+                android:hint="Short description"
                 android:layout_width="327dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
@@ -91,6 +92,7 @@
 
             <EditText
                 android:id="@+id/valueText"
+                android:hint="0.0"
                 android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -102,6 +104,7 @@
 
             <EditText
                 android:id="@+id/itemNameText"
+                android:hint="Name"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
@@ -112,6 +115,7 @@
 
             <EditText
                 android:id="@+id/timeStampText"
+                android:hint="0"
                 android:layout_width="212dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
@@ -164,6 +168,7 @@
 
             <EditText
                 android:id="@+id/fullDescriptionText"
+                android:hint="Full description"
                 android:layout_width="327dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
