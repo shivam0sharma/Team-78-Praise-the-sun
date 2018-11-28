@@ -21,7 +21,7 @@ public enum CharityType {
             case WAREHOUSE:
                 return "Warehouse";
             default:
-                return "whatever";
+                return "Warehouse";
         }
     }
 

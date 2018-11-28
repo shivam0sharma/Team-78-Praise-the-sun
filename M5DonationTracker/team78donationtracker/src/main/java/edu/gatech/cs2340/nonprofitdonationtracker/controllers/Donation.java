@@ -34,17 +34,9 @@ public class Donation implements java.io.Serializable {
     }
 
     /**
-     * Donation constructor
+     * Default donation constructor.
      */
-    public Donation() {
-        name = "asdf";
-        timeStamp = "asdf";
-        location = "asdf";
-        shortDescription = "asdf";
-        fullDescription = "asdf";
-        value = 4.20;
-        category = Category.CLOTHING;
-    }
+    public Donation() {}
 
     /**
      * Returns name
@@ -58,7 +50,7 @@ public class Donation implements java.io.Serializable {
      * Returns time stamp
      * @return time stamp
      */
-    public String getTimeStamp() {
+    public CharSequence getTimeStamp() {
         return timeStamp;
     }
 

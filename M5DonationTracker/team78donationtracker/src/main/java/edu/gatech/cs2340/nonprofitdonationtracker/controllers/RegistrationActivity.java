@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -111,6 +112,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 return "1";
             } catch(Exception e){
                 System.out.println("Exception: " + e);
+                Log.d("myapp:", "Exception: " + e);
                 return "0";
             }
             /*for (String credential : DUMMY_CREDENTIALS) {

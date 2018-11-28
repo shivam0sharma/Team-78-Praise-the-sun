@@ -36,7 +36,8 @@ public class DonationInfoPageActivity extends AppCompatActivity {
         TextView tv4 = findViewById(R.id.fullDescriptionText);
         tv4.setText(donation.getFullDescription());
         TextView tv5 = findViewById(R.id.valueText);
-        tv5.setText(Double.toString(donation.getValue()));
+        String v = donation.getValue() + "";
+        tv5.setText(v);
         TextView tv6 = findViewById(R.id.categoryText);
         tv6.setText(Category.getCategory(donation.getCategory()));
         TextView tv7 = findViewById(R.id.locationText);

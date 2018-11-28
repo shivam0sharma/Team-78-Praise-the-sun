@@ -85,7 +85,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.setMinZoomPreference(12);
+        int num = 12;
+        googleMap.setMinZoomPreference(num);
         for (Charity charity : InfoDump.ITEMS) {
             LatLng charLatLng = new LatLng(charity.getLatitude(), charity.getLongitude());
             MarkerOptions mO = new MarkerOptions();
@@ -94,7 +95,10 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             mO = mO.snippet("Phone number: " + charity.getPhoneNumber());
             googleMap.addMarker(mO);
         }
-        LatLng atl = new LatLng(33.7490, -84.3880);
+
+        double lon = -84.3880;
+        double lat = 33.7490;
+        LatLng atl = new LatLng(lat, lon);
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(atl));

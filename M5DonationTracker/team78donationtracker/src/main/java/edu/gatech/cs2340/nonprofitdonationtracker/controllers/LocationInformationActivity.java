@@ -33,9 +33,11 @@ public class LocationInformationActivity extends AppCompatActivity {
         CharityType cT = charity.getType();
         tv2.setText(CharityType.getName(cT));
         TextView tv3 = findViewById(R.id.latitude);
-        tv3.setText(Double.toString(charity.getLatitude()));
+        String lat = charity.getLatitude() + "";
+        tv3.setText(lat);
         TextView tv4 = findViewById(R.id.longitude);
-        tv4.setText(Double.toString(charity.getLongitude()));
+        String lng = charity.getLongitude() + "";
+        tv4.setText(lng);
         TextView tv5 = findViewById(R.id.address);
         tv5.setText(charity.getStreetAddress());
         TextView tv6 = findViewById(R.id.phonenumber);

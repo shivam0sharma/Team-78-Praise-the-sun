@@ -30,7 +30,7 @@ import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
  */
 public class HomePageActivity extends AppCompatActivity {
 
-    boolean loadedDonation;
+    private boolean loadedDonation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

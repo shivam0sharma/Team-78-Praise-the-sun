@@ -12,7 +12,7 @@
         android:id="@+id/textView14"
         android:layout_width="103dp"
         android:layout_height="31dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="84dp"
         android:text="Donations"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -21,43 +21,54 @@
 
     <Spinner
         android:id="@+id/DonationSpinner"
-        android:layout_width="321dp"
+        android:layout_width="0dp"
         android:layout_height="26dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginStart="34dp"
         android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
         android:id="@+id/ConfirmBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="24dp"
-        android:onClick= "OnClickConfirm"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="36dp"
+        android:onClick="OnClickConfirm"
         android:text="Confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DonationSpinner" />
 
     <Button
         android:id="@+id/AddDonationBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="16dp"
         android:onClick="OnClickAdd"
         android:text="Add Donation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ConfirmBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/CancelBtn" />
 
     <Button
         android:id="@+id/CancelBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="16dp"
         android:onClick="onClickCancel"
         android:text="Cancel"
-        app:layout_constraintStart_toEndOf="@+id/ConfirmBtn"
-        app:layout_constraintTop_toBottomOf="@+id/DonationSpinner" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmBtn" />
 </android.support.constraint.ConstraintLayout>
