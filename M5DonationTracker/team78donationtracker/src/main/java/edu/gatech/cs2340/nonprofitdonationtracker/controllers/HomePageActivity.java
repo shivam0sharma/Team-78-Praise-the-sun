@@ -100,11 +100,42 @@ public class HomePageActivity extends AppCompatActivity {
                     newCharity.setPhoneNumber(phone);
                     charities.add(newCharity);
                 }
+                InfoDump.setup(charities);
+
+
+                URL p2 = new URL("http://75.15.180.181/getDonations.php");
+                URLConnection pp2 = p2.openConnection();
+                BufferedReader in2 = new BufferedReader(new InputStreamReader(pp2.getInputStream()));
+                String response2 = "";
+                String inputLine2;
+                while ((inputLine2 = in2.readLine()) != null) {
+                    response2 += inputLine2;
+                }
+                in.close();
+
+                JSONObject donationFile = new JSONObject(response2);
+                System.out.println("response2 is real" + response2);
+                JSONArray donationArray = donationFile.getJSONArray("result");
+                System.out.println("donationArray is real" + donationArray);
+
+                JSONObject current2 = null;
+
+                System.out.println("The array length is " + donationArray.length());
+                Donation don;
+                for (int i = 0; i < donationArray.length(); i++) {
+                    current2 = donationArray.getJSONObject(i);
+                    don = new Donation(current2.getString("donationName"),current2.getString("timeStamp"),current2.getString("location"),current2.getString("shortDescription"),current2.getString("longDescription"),current2.getDouble("donationValue"));
+                    don.setCategory( Category.valueOf(current2.getString("category")));
+                    System.out.println("the donation is " + don);
+                    InfoDump.DONATIONS_MAP.map.get(InfoDump.current).add(don);
+
+                }
                 if (loadedDonation) {
                     InfoDump.setup(charities);
                 } else {
                     InfoDump.setUpEverything(charities);
                 }
+
 
                 return "yes" ;
 

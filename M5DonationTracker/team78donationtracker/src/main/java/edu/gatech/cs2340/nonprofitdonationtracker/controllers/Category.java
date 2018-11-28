@@ -16,19 +16,25 @@ public enum Category {
     public static CharSequence getCategory(Category input) {
         switch(input) {
             case CLOTHING:
-                return "Clothing";
+                return "CLOTHING";
             case HAT:
-                return "Hat";
+                return "HAT";
             case KITCHEN:
-                return "Kitchen";
+                return "KITCHEN";
             case ELECTRONICS:
-                return "Electronics";
+                return "ELECTRONICS";
             case HOUSEHOLD:
+<<<<<<< HEAD
+                return "HOUSEHOLD";
+            default:
+                return "OTHER";
+=======
                 return "Household";
             case OTHER:
                 return "Other";
             default:
                 return "Undefined";
+>>>>>>> 4128f121db44791d23f1956350dcf9fb58eb7893
         }
     }
 
