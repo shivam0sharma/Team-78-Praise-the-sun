@@ -24,17 +24,10 @@ public enum Category {
             case ELECTRONICS:
                 return "ELECTRONICS";
             case HOUSEHOLD:
-<<<<<<< HEAD
                 return "HOUSEHOLD";
             default:
                 return "OTHER";
-=======
-                return "Household";
-            case OTHER:
-                return "Other";
-            default:
-                return "Undefined";
->>>>>>> 4128f121db44791d23f1956350dcf9fb58eb7893
+
         }
     }
 
