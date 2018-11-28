@@ -1,6 +1,11 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -18,7 +23,8 @@ import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 /**
  * Google map page
  */
-public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class GoogleMapActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener, OnMapReadyCallback {
 
     private MapView mapView;
 
@@ -34,7 +40,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
         }
-
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
@@ -102,6 +107,12 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(atl));
+        if (checkLocationPermission()) {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.setOnMyLocationButtonClickListener(this);
+            googleMap.setOnMyLocationClickListener(this);
+        }
+
     }
 
     /**
@@ -110,5 +121,20 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
      */
     public void onClickBack(View view) {
         finish();
+    }
+
+    public boolean checkLocationPermission() {
+        return ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
     }
 }

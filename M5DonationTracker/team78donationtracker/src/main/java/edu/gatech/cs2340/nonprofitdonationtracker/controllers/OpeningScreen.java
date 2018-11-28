@@ -37,4 +37,10 @@ public class OpeningScreen extends AppCompatActivity {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
+
+    public void onClickInv(View view) {
+        Intent intent = new Intent(this, HomePageActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -24,6 +24,8 @@ import java.util.HashMap;
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
 import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.DonationMap;
 import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Home page after logging in.
@@ -31,9 +33,10 @@ import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 public class HomePageActivity extends AppCompatActivity {
 
     private boolean loadedDonation;
+    private final int REQUEST_LOCATION_PERMISSION = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        requestLocationPermission();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         //get donations saved from cache
@@ -156,5 +159,14 @@ public class HomePageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OpeningScreen.class);
         startActivity(intent);
         finish();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @AfterPermissionGranted(REQUEST_LOCATION_PERMISSION)
+    public void requestLocationPermission() {
     }
 }
