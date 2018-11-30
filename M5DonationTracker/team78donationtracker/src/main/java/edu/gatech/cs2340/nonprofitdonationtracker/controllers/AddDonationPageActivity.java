@@ -1,9 +1,11 @@
 package edu.gatech.cs2340.nonprofitdonationtracker.controllers;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,7 +28,8 @@ import java.net.URLConnection;
 import java.io.ObjectOutput;
 
 import java.util.List;
-
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 import edu.gatech.cs2340.nonprofitdonationtracker.R;
 import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
@@ -37,6 +40,8 @@ import edu.gatech.cs2340.nonprofitdonationtracker.controllers.data.InfoDump;
 public class AddDonationPageActivity extends AppCompatActivity {
 
     private Spinner categorySpinner;
+    @TargetApi(Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,10 @@ public class AddDonationPageActivity extends AppCompatActivity {
         categorySpinner.setAdapter(adapter);
         TextView tv = findViewById(R.id.textView20);
         tv.setText(InfoDump.current);
+        TextView tv1 = findViewById(R.id.timeStampText);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        tv1.setText(dtf.format(now));
     }
 
     /**

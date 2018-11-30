@@ -66,6 +66,7 @@ public class HomePageActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             System.out.println("Doing in background...");
+            Collection<Charity> charities = new ArrayList<>();
             try{
 
                 URL p = new URL("http://75.15.180.181/getData.php");
@@ -82,7 +83,6 @@ public class HomePageActivity extends AppCompatActivity {
                 JSONObject locationFile = new JSONObject(response);
                 JSONArray locationArray = locationFile.getJSONArray("result");
                 JSONObject current;
-                Collection<Charity> charities = new ArrayList<>();
                 for (int i = 0; i < locationArray.length(); i++) {
                     Charity newCharity = new Charity();
                     current = locationArray.getJSONObject(i);
@@ -101,6 +101,7 @@ public class HomePageActivity extends AppCompatActivity {
                     charities.add(newCharity);
                 }
                 InfoDump.setup(charities);
+                System.out.println("keys " + InfoDump.DONATIONS_MAP.map.keySet());
 
 
                 URL p2 = new URL("http://75.15.180.181/getDonations.php");
@@ -125,23 +126,19 @@ public class HomePageActivity extends AppCompatActivity {
                 for (int i = 0; i < donationArray.length(); i++) {
                     current2 = donationArray.getJSONObject(i);
                     don = new Donation(current2.getString("donationName"),current2.getString("timeStamp"),current2.getString("location"),current2.getString("shortDescription"),current2.getString("longDescription"),current2.getDouble("donationValue"));
-                    don.setCategory( Category.valueOf(current2.getString("category")));
-                    System.out.println("the donation is " + don);
-                    InfoDump.DONATIONS_MAP.map.get(InfoDump.current).add(don);
+                    don.setCategory( Category.category(current2.getString("category")));
+                    System.out.println("the donation location is " + don.getLocation());
+                    System.out.println("keys " + InfoDump.DONATIONS_MAP.map.keySet());
+                    InfoDump.DONATIONS_MAP.map.get(don.getLocation()).add(don);
 
                 }
-                if (loadedDonation) {
-                    InfoDump.setup(charities);
-                } else {
-                    InfoDump.setUpEverything(charities);
-                }
-
-
                 return "yes" ;
 
             } catch(Exception e){
                 System.out.println(e.getMessage());
+                InfoDump.setUpEverything(charities);
                 return "Exception: " + e.getMessage();
+
             }
         }
 
